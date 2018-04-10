@@ -10,7 +10,8 @@ import pandas as pd
 
 #############################################################################################
 # This periode is for read the noeuds and transform it into the type of a two dimension list 
-# with the geographic            
+# with the geographic    
+# In this list, the terms are noeud_id, type_noeud, nothing, lat, lon, station
 #############################################################################################
 
 myshp = open("NOEUD_ROUTIER.shp", "rb")
@@ -22,7 +23,7 @@ neouds = r.shapeRecords()
 liste_neoud = []
 
 for i in range(len(neouds)):
-    liste = neouds[i].record[:] + list(neouds[i].shape.points[0]) + 
+    liste = neouds[i].record[:] + list(neouds[i].shape.points[0]) + [0] #last "0" is for station
     liste_neoud.append(liste)
 
 #############################################################################################

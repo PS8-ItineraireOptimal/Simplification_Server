@@ -31,7 +31,7 @@ for i in range(len(neouds)):
 #############################################################################################
 # This periode is for read the routes and transform it into a two dimension list with attributs
 # and two points the geographic
-# In this list, the terms are troncon_id, distance, lat1, lon1, lat2, lon2
+# In this list, the terms are troncon_id, distance, pointA, pointB
 #############################################################################################
 
 myshp = open("TRONCON_ROUTE.shp", "rb")

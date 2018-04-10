@@ -45,13 +45,19 @@ liste_troncon = []
 
 for i in range(len(troncons)):
     for j in range(len(liste_neoud)):
+        find_point = 0
         if (liste_neoud[j][3:-2] == list(troncons[i].shape.points[0])):
             id_pointA = liste_neoud[j][0]
             liste_neoud[j][-1] += 1
+            find_point += 1
 
         if (liste_neoud[j][3:-2] == list(troncons[i].shape.points[-1])):
             id_pointB = liste_neoud[j][0]
             liste_neoud[j][-1] += 1
+            find_point += 1
+            
+        if (find_point == 2): break
+        
     liste = [troncons[i].record[0]] + [troncons[i].record[-1]] + [id_pointA] + [id_pointB]
     print(liste)
     liste_troncon.append(liste)

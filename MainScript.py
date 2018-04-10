@@ -6,6 +6,7 @@
 
 
 import shapefile
+import copy
 import pandas as pd
 
 #############################################################################################
@@ -22,7 +23,6 @@ neouds = r.shapeRecords()
 
 liste_neoud = []
 
-for i in range(len(neouds)):
 for i in range(len(neouds)):
     liste = neouds[i].record[:] + list(neouds[i].shape.points[0]) + [0] #last "0" is for station
     liste_neoud.append(liste)
@@ -42,9 +42,18 @@ troncons = r.shapeRecords()
 
 liste_troncon = []
 
+print(liste_neoud[0][3:-1])
+print(troncons[0].shape.points[0])
+print(liste_neoud[0][3:-1] == list(troncons[0].shape.points[0]))
+
 for i in range(len(troncons)):
-    liste = [troncons[i].record[0]] + [troncons[i].record[-1]] + list(troncons[i].shape.points[0]) + list(troncons[i].shape.points[-1])
+    for j in range(len(liste_neoud)):
+        if (liste_neoud[j][3:-1] == list(troncons[i].shape.points[0])): id_pointA = liste_neoud[j][0]
+        if (liste_neoud[j][3:-1] == list(troncons[i].shape.points[-1])): id_pointB = liste_neoud[j][0]
+    liste = [troncons[i].record[0]] + [troncons[i].record[-1]] + [id_pointA] + [id_pointB]
+    print(liste)
     liste_troncon.append(liste)
+
 
 
 #############################################################################################

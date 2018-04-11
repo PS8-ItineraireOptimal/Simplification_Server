@@ -1,3 +1,5 @@
+#coding=utf-8
+
 ####################################################################
 #                                                                  #
 #                     MAIN SCRIPT OF THE DATA BASE                 #      
@@ -8,6 +10,8 @@
 import shapefile
 import copy
 import pandas as pd
+import csv
+import codecs
 
 #############################################################################################
 # This periode is for read the noeuds and transform it into the type of a two dimension list 
@@ -24,7 +28,7 @@ neouds = r.shapeRecords()
 liste_neoud = []
 
 for i in range(len(neouds)):
-    liste = neouds[i].record[:] + list(neouds[i].shape.points[0]) + [0,0] #last "0" is for station
+    liste = neouds[i].record[:] + list(neouds[i].shape.points[0]) + [0,0,0,0] #last "0" is for station
     liste_neoud.append(liste)
 
 
@@ -45,21 +49,46 @@ liste_troncon = []
 
 for i in range(len(troncons)):
     for j in range(len(liste_neoud)):
-        find_point = 0
-        if (liste_neoud[j][3:-2] == list(troncons[i].shape.points[0])):
-            id_pointA = liste_neoud[j][0]
-            liste_neoud[j][-1] += 1
-            find_point += 1
 
-        if (liste_neoud[j][3:-2] == list(troncons[i].shape.points[-1])):
+        if (liste_neoud[j][3:5] == list(troncons[i].shape.points[0])):
+            id_pointA = liste_neoud[j][0]
+            break
+
+    for j in range(len(liste_neoud)):
+        if (liste_neoud[j][3:5] == list(troncons[i].shape.points[-1])):
             id_pointB = liste_neoud[j][0]
-            liste_neoud[j][-1] += 1
-            find_point += 1
-            
-        if (find_point == 2): break
-        
-    liste = [troncons[i].record[0]] + [troncons[i].record[-1]] + [id_pointA] + [id_pointB]
+            break
+
+    liste = [troncons[i].record[0]] + list(troncons[i].record[-2:]) + [id_pointA] + [id_pointB]
     print(liste)
     liste_troncon.append(liste)
 
+#############################################################################################
+# This periode is for put the data in a csv
+# 
+#############################################################################################
 
+fileHeader1 = ["id_noeud", "nature", "nombre_echange", "lat", "lon", "id_station", "lat_station", "lon_station", "distance_station"]
+fileHeader2 = ["id_route", "type_route", "distance", "id_noeud1", "id_noeud2"]
+
+csvFile = open("Liste_neoud.csv", "w", newline ='')
+
+writer = csv.writer(csvFile)
+
+writer.writerow(fileHeader1)
+for i in range(len(liste_neoud)):
+    writer.writerow(liste_neoud[i])
+
+csvFile.close()
+
+
+
+csvFile = open("Liste_routes.csv", "w", newline ='')
+
+writer = csv.writer(csvFile)
+
+writer.writerow(fileHeader2)
+for i in range(len(liste_troncon)):
+    writer.writerow(liste_troncon[i])
+
+csvFile.close()

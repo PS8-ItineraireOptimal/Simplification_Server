@@ -150,6 +150,36 @@ for i in range(len(troncons) - 30000):
     liste_troncon.append(liste)
     print(liste[0])
 
+
+#############################################################################################
+# This periode will delete all the nodes with only two paths
+# And put those two paths in one
+#############################################################################################
+
+for i in range(len(liste_neoud)):
+    if (liste_neoud[i][7] == 2):
+
+        if (liste_troncon[liste_neoud[i][8]-1][3] == liste_neoud[i][0]):
+            if (liste_troncon[liste_neoud[i][9]-1][3] == liste_neoud[i][0]):
+                path1 = liste_troncon[liste_neoud[i][9]-1][4]
+            else:
+                path1 = liste_troncon[liste_neoud[i][9]-1][3]
+            liste_troncon[liste_neoud[i][8]-1][3] = path1
+        else:
+            if (liste_troncon[liste_neoud[i][9]-1][3] == liste_neoud[i][0]):
+                path1 = liste_troncon[liste_neoud[i][9]-1][4]
+            else:
+                path1 = liste_troncon[liste_neoud[i][9]-1][3]
+            liste_troncon[liste_neoud[i][9]-1][4] = path1
+
+        liste_troncon[liste_neoud[i][8]-1][2] += liste_troncon[liste_neoud[i][9]-1][2]
+
+
+    liste_neoud[i] = ""
+    liste_troncon[liste_neoud[i][9]-1] = ""
+
+
+
 #############################################################################################
 # This periode is for put the data in a csv
 #

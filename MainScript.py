@@ -36,7 +36,7 @@ for i in range(len(neouds)):
 # This periode is for read the routes and transform it into a two dimension list with attributs
 # and two points the geographic
 # This periode is for changing the geographic data of route into the id of the noeuds
-# In this list, the terms are troncon_id, distance, id_pointA, id_pointB
+# And this periode will calculate the number of roads for each node, and save the first 2 paths of each node
 #############################################################################################
 
 myshp = open("TRONCON_ROUTE.shp", "rb")
@@ -70,7 +70,9 @@ for i in range(10000):
 
     liste = [troncons[i].record[0]] + list(troncons[i].record[-2:]) + [id_pointA] + [id_pointB]
     liste_troncon.append(liste)
-    print(liste)
+    print(liste[0])
+
+
 
 for i in range(10000):
     zone1  = 10000 + i
@@ -95,7 +97,9 @@ for i in range(10000):
 
     liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
     liste_troncon.append(liste)
-    print(liste)
+    print(liste[0])
+
+
 
 for i in range(10000):
     zone1  = 20000 + i
@@ -120,13 +124,12 @@ for i in range(10000):
 
     liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
     liste_troncon.append(liste)
-    print(liste)
+    print(liste[0])
 
-for i in range(len(liste_troncon) - 30000):
+for i in range(len(troncons) - 30000):
     zone1  = 30000 + i
     for j in range(lonth_noeud):
         zone2 = (j + 23000) % lonth_noeud
-
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
             id_pointA = liste_neoud[zone2][0]
             liste_neoud[zone2][7] += 1
@@ -145,7 +148,7 @@ for i in range(len(liste_troncon) - 30000):
 
     liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
     liste_troncon.append(liste)
-    print(liste)
+    print(liste[0])
 
 #############################################################################################
 # This periode is for put the data in a csv

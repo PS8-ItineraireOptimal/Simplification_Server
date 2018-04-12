@@ -55,11 +55,17 @@ for i in range(10000):
 
         if (liste_neoud[j][1:3] == list(troncons[i].shape.points[0])):
             id_pointA = liste_neoud[j][0]
+            liste_neoud[j][7] += 1
+            if (liste_neoud[j][7] == 1): liste_neoud[j][8] = troncons[i].record[0]
+            if (liste_neoud[j][7] == 2): liste_neoud[j][9] = troncons[i].record[0]
             break
 
     for j in range(lonth_noeud):
         if (liste_neoud[j][1:3] == list(troncons[i].shape.points[-1])):
             id_pointB = liste_neoud[j][0]
+            liste_neoud[j][7] += 1
+            if (liste_neoud[j][7] == 1): liste_neoud[j][8] = troncons[i].record[0]
+            if (liste_neoud[j][7] == 2): liste_neoud[j][9] = troncons[i].record[0]
             break
 
     liste = [troncons[i].record[0]] + list(troncons[i].record[-2:]) + [id_pointA] + [id_pointB]
@@ -73,12 +79,18 @@ for i in range(10000):
 
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
             id_pointA = liste_neoud[zone2][0]
+            liste_neoud[zone2][7] += 1
+            if (liste_neoud[zone2][7] == 1): liste_neoud[zone2][8] = troncons[zone1].record[0]
+            if (liste_neoud[zone2][7] == 2): liste_neoud[zone2][9] = troncons[zone1].record[0]
             break
 
     for j in range(lonth_noeud):
         zone2 = (j + 8000) % lonth_noeud
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[-1])):
             id_pointB = liste_neoud[zone2][0]
+            liste_neoud[zone2][7] += 1
+            if (liste_neoud[zone2][7] == 1): liste_neoud[zone2][8] = troncons[zone1].record[0]
+            if (liste_neoud[zone2][7] == 2): liste_neoud[zone2][9] = troncons[zone1].record[0]
             break
 
     liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
@@ -92,31 +104,43 @@ for i in range(10000):
 
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
             id_pointA = liste_neoud[zone2][0]
+            liste_neoud[zone2][7] += 1
+            if (liste_neoud[zone2][7] == 1): liste_neoud[zone2][8] = troncons[zone1].record[0]
+            if (liste_neoud[zone2][7] == 2): liste_neoud[zone2][9] = troncons[zone1].record[0]
             break
 
     for j in range(lonth_noeud):
         zone2 = (j + 16000) % lonth_noeud
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[-1])):
             id_pointB = liste_neoud[zone2][0]
+            liste_neoud[zone2][7] += 1
+            if (liste_neoud[zone2][7] == 1): liste_neoud[zone2][8] = troncons[zone1].record[0]
+            if (liste_neoud[zone2][7] == 2): liste_neoud[zone2][9] = troncons[zone1].record[0]
             break
 
     liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
     liste_troncon.append(liste)
     print(liste)
 
-for i in range(lonth_noeud - 30000):
+for i in range(len(liste_troncon) - 30000):
     zone1  = 30000 + i
     for j in range(lonth_noeud):
         zone2 = (j + 23000) % lonth_noeud
 
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
             id_pointA = liste_neoud[zone2][0]
+            liste_neoud[zone2][7] += 1
+            if (liste_neoud[zone2][7] == 1): liste_neoud[zone2][8] = troncons[zone1].record[0]
+            if (liste_neoud[zone2][7] == 2): liste_neoud[zone2][9] = troncons[zone1].record[0]
             break
 
     for j in range(lonth_noeud):
         zone2 = (j + 23000) % lonth_noeud
         if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[-1])):
             id_pointB = liste_neoud[zone2][0]
+            liste_neoud[zone2][7] += 1
+            if (liste_neoud[zone2][7] == 1): liste_neoud[zone2][8] = troncons[zone1].record[0]
+            if (liste_neoud[zone2][7] == 2): liste_neoud[zone2][9] = troncons[zone1].record[0]
             break
 
     liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]

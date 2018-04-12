@@ -64,7 +64,7 @@ df_roads["random"] = np.random.uniform(0,1, size=len(df_roads))
 ########################################################################################################################
 df_roads["Eij kWh"] = df["kWh100km"].mean()*df_roads["distance"]/100
 df_roads["Tij h"] = df_roads["distance"]/(df_roads["vitesse"]*df_roads["random"])
-
+df_roads = df_roads.drop("random",1)
 ########################################################################################################################
 #                                       Step five: connection to mysql and update tables                               #
 ########################################################################################################################

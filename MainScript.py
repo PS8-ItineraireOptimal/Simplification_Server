@@ -2,7 +2,7 @@
 
 ####################################################################
 #                                                                  #
-#                     MAIN SCRIPT OF THE DATA BASE                 #      
+#                     MAIN SCRIPT OF THE DATA BASE                 #
 #                            version 1.0                           #
 ####################################################################
 
@@ -14,8 +14,8 @@ import csv
 import codecs
 
 #############################################################################################
-# This periode is for read the noeuds and transform it into the type of a two dimension list 
-# with the geographic    
+# This periode is for read the noeuds and transform it into the type of a two dimension list
+# with the geographic
 # In this list, the terms are noeud_id, type_noeud, nothing, lat, lon, station, number of the routes
 #############################################################################################
 
@@ -28,7 +28,7 @@ neouds = r.shapeRecords()
 liste_neoud = []
 
 for i in range(len(neouds)):
-    liste = neouds[i].record[:] + list(neouds[i].shape.points[0]) + [0,0,0,0] #last "0" is for station
+    liste = [neouds[i].record[0]] + list(neouds[i].shape.points[0]) + [0,0,0,0,0,0,0] #last "0" is for station
     liste_neoud.append(liste)
 
 
@@ -47,31 +47,91 @@ troncons = r.shapeRecords()
 
 liste_troncon = []
 
-for i in range(len(troncons)):
-    for j in range(len(liste_neoud)):
 
-        if (liste_neoud[j][3:5] == list(troncons[i].shape.points[0])):
+lonth_noeud = len(liste_neoud)
+
+for i in range(10000):
+    for j in range(lonth_noeud):
+
+        if (liste_neoud[j][1:3] == list(troncons[i].shape.points[0])):
             id_pointA = liste_neoud[j][0]
             break
 
-    for j in range(len(liste_neoud)):
-        if (liste_neoud[j][3:5] == list(troncons[i].shape.points[-1])):
+    for j in range(lonth_noeud):
+        if (liste_neoud[j][1:3] == list(troncons[i].shape.points[-1])):
             id_pointB = liste_neoud[j][0]
             break
 
     liste = [troncons[i].record[0]] + list(troncons[i].record[-2:]) + [id_pointA] + [id_pointB]
-    print(liste)
     liste_troncon.append(liste)
+    print(liste)
+
+for i in range(10000):
+    zone1  = 10000 + i
+    for j in range(lonth_noeud):
+        zone2 = (j + 8000) % lonth_noeud
+
+        if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
+            id_pointA = liste_neoud[zone2][0]
+            break
+
+    for j in range(lonth_noeud):
+        zone2 = (j + 8000) % lonth_noeud
+        if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[-1])):
+            id_pointB = liste_neoud[zone2][0]
+            break
+
+    liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
+    liste_troncon.append(liste)
+    print(liste)
+
+for i in range(10000):
+    zone1  = 20000 + i
+    for j in range(lonth_noeud):
+        zone2 = (j + 16000) % lonth_noeud
+
+        if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
+            id_pointA = liste_neoud[zone2][0]
+            break
+
+    for j in range(lonth_noeud):
+        zone2 = (j + 16000) % lonth_noeud
+        if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[-1])):
+            id_pointB = liste_neoud[zone2][0]
+            break
+
+    liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
+    liste_troncon.append(liste)
+    print(liste)
+
+for i in range(lonth_noeud - 30000):
+    zone1  = 30000 + i
+    for j in range(lonth_noeud):
+        zone2 = (j + 23000) % lonth_noeud
+
+        if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[0])):
+            id_pointA = liste_neoud[zone2][0]
+            break
+
+    for j in range(lonth_noeud):
+        zone2 = (j + 23000) % lonth_noeud
+        if (liste_neoud[zone2][1:3] == list(troncons[zone1].shape.points[-1])):
+            id_pointB = liste_neoud[zone2][0]
+            break
+
+    liste = [troncons[zone1].record[0]] + list(troncons[zone1].record[-2:]) + [id_pointA] + [id_pointB]
+    liste_troncon.append(liste)
+    print(liste)
 
 #############################################################################################
 # This periode is for put the data in a csv
-# 
+#
 #############################################################################################
 
-fileHeader1 = ["id_noeud", "nature", "nombre_echange", "lat", "lon", "id_station", "lat_station", "lon_station", "distance_station"]
+fileHeader1 = ["id_noeud", "lat", "lon", "id_station", "lat_station", "lon_station", "distance_station", "number_route", "path1", "path2"]
 fileHeader2 = ["id_route", "type_route", "distance", "id_noeud1", "id_noeud2"]
 
-csvFile = open("Liste_neoud.csv", "w", newline ='')
+csvFile = open("Liste_noeud.csv", "w", newline ='')
 
 writer = csv.writer(csvFile)
 
@@ -92,3 +152,5 @@ for i in range(len(liste_troncon)):
     writer.writerow(liste_troncon[i])
 
 csvFile.close()
+
+

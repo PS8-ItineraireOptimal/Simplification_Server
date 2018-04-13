@@ -154,7 +154,10 @@ print("read paths finished.....")
 # And put those two paths in one
 #############################################################################################
 
+delete_noeud = []
+delete_path = []
 for i in range(len(liste_neoud)):
+
     if (liste_neoud[i][8] == 2):
 
         index_path1 = int(liste_neoud[i][9] - 1)
@@ -163,26 +166,18 @@ for i in range(len(liste_neoud)):
         if (index_path1 > 8099): index_path1 = index_path1 - 1
         if (index_path2 > 8099): index_path2 = index_path2 - 1
 
-        print("i:                            " + str(i))
-        print("index_path1:                  " + str(index_path1))
-        print("index_path1:                  " + str(index_path2))
-        print("liste_troncon[index_path1][3] " + str(liste_troncon[index_path1][3]))
-        print("liste_troncon[index_path2][3] " + str(liste_troncon[index_path2][3]))
-        print("liste_neoud[i][0]             " + str(liste_neoud[i][0]))
-        print("------------------------------------------------------")
-
-        # if (liste_troncon[index_path1][3] == liste_neoud[i][0]):
-        #     if (liste_troncon[index_path2][3] == liste_neoud[i][0]):
-        #         path1 = liste_troncon[index_path2][4]
-        #     else:
-        #         path1 = liste_troncon[index_path2][3]
-        #     liste_troncon[index_path1][3] = path1
-        # else:
-        #     if (liste_troncon[index_path2][3] == liste_neoud[i][0]):
-        #         path1 = liste_troncon[index_path2][4]
-        #     else:
-        #         path1 = liste_troncon[index_path2][3]
-        #     liste_troncon[index_path2][4] = path1
+        if (liste_troncon[index_path1][3] == liste_neoud[i][0]):
+            if (liste_troncon[index_path2][3] == liste_neoud[i][0]):
+                path1 = liste_troncon[index_path2][4]
+            else:
+                path1 = liste_troncon[index_path2][3]
+            liste_troncon[index_path1][3] = path1
+        else:
+            if (liste_troncon[index_path2][3] == liste_neoud[i][0]):
+                path1 = liste_troncon[index_path2][4]
+            else:
+                path1 = liste_troncon[index_path2][3]
+            liste_troncon[index_path1][4] = path1
 
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
@@ -190,9 +185,17 @@ for i in range(len(liste_neoud)):
         liste_troncon[index_path1][2] += liste_troncon[index_path2][2]
 
 
+        delete_noeud.append(i)
+        delete_path.append(index_path2)
 
-        liste_neoud[i] = ""
-        liste_troncon[index_path2] = ""
+        print("------------------------------------------------------")
+
+
+for i in range(len(delete_noeud)):
+    liste_neoud[delete_noeud[i]] = ''
+
+for i in range(len(delete_path)):
+    liste_troncon[delete_path[i]] = ''
 
 while '' in liste_neoud:
     liste_neoud.remove('')

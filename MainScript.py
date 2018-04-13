@@ -160,8 +160,11 @@ for i in range(len(liste_neoud)):
 
     if (liste_neoud[i][8] == 2):
 
-        index_path1 = int(liste_neoud[i][9] - 1)
-        index_path2 = int(liste_neoud[i][10] - 1)
+        origine_path1 = liste_neoud[i][9]
+        origine_path2 = liste_neoud[i][10]
+
+        index_path1 = int(origine_path1 - 1)
+        index_path2 = int(origine_path2 - 1)
 
         if (index_path1 > 8099): index_path1 = index_path1 - 1
         if (index_path2 > 8099): index_path2 = index_path2 - 1
@@ -182,25 +185,18 @@ for i in range(len(liste_neoud)):
             liste_troncon[index_path1][4] = path1
 
 
-        if (liste_neoud[path1][9] == index_path2):
+        if (liste_neoud[path1 - 1][9] == origine_path2):
 
-            if (index_path1 > 8099): index_path1 = index_path1 + 1
-            liste_neoud[path1][9] = index_path1 + 1
-        if (liste_neoud[path1][10] == index_path2):
+            liste_neoud[path1 - 1][9] = origine_path1
 
-            if (index_path1 > 8099): index_path1 = index_path1 + 1
-            liste_neoud[path1][9] = index_path1 + 1
 
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        if (liste_neoud[path1 - 1][10] == origine_path2):
 
-        print(liste_neoud[i][:])
-        liste_troncon[index_path1][2] += liste_troncon[index_path2][2]
-
+            liste_neoud[path1 - 1][9] = origine_path1
 
         delete_noeud.append(i)
         delete_path.append(index_path2)
 
-        print("------------------------------------------------------")
 
 
 for i in range(len(delete_noeud)):
@@ -221,8 +217,8 @@ while '' in liste_troncon:
 
 fileHeader1 = ["id_noeud", "lat", "lon", "id_station", "lat_station", "lon_station", "distance_station", "type_station","number_route", "path1", "path2"]
 fileHeader2 = ["id_route", "type_route", "distance", "id_noeud1", "id_noeud2"]
-
 csvFile = open("Liste_noeud.csv", "w", newline ='')
+
 
 writer = csv.writer(csvFile)
 

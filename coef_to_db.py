@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+
 ########################################################################################################################
 #                                                                                                                      #
 # This python script feeds the dataBase in five steps every n minutes:                                                 #

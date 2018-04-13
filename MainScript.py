@@ -172,12 +172,24 @@ for i in range(len(liste_neoud)):
             else:
                 path1 = liste_troncon[index_path2][3]
             liste_troncon[index_path1][3] = path1
+
+
         else:
             if (liste_troncon[index_path2][3] == liste_neoud[i][0]):
                 path1 = liste_troncon[index_path2][4]
             else:
                 path1 = liste_troncon[index_path2][3]
             liste_troncon[index_path1][4] = path1
+
+
+        if (liste_neoud[path1][9] == index_path2):
+
+            if (index_path1 > 8099): index_path1 = index_path1 + 1
+            liste_neoud[path1][9] = index_path1 + 1
+        if (liste_neoud[path1][10] == index_path2):
+
+            if (index_path1 > 8099): index_path1 = index_path1 + 1
+            liste_neoud[path1][9] = index_path1 + 1
 
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 

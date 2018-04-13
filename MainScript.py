@@ -194,10 +194,11 @@ for i in range(len(liste_neoud)):
 
             liste_neoud[path1 - 1][9] = origine_path1
 
+        liste_troncon[index_path1][2] += liste_troncon[index_path2][2]
+
+
         delete_noeud.append(i)
         delete_path.append(index_path2)
-
-
 
 for i in range(len(delete_noeud)):
     liste_neoud[delete_noeud[i]] = ''
@@ -209,6 +210,8 @@ while '' in liste_neoud:
     liste_neoud.remove('')
 while '' in liste_troncon:
     liste_troncon.remove('')
+    
+print("data has already been cleaned")
 
 #############################################################################################
 # This periode is for put the data in a csv

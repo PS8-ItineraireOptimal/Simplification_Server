@@ -248,7 +248,7 @@ for i in range(len(list_stations)):
     list_stations[i][1], list_stations[i][2] = pyproj.transform(wgs84, lambert, list_stations[i][1], list_stations[i][2])
     print(list_stations[i])
 
-
+print("reading and transforming station data finished")
 #############################################################################################
 # This period is to find the nearest node of a station, and then, the nearest station of a node,
 #
@@ -287,8 +287,7 @@ for i in range(len(list_stations)):
         liste_neoud[id_min][7] = list_stations[i][3]
 
 
-
-
+print("add station finished")
 #############################################################################################
 # This period is for put the data in a csv
 # And with the correct name
@@ -318,3 +317,5 @@ for i in range(len(liste_troncon)):
     writer.writerow(liste_troncon[i])
 
 csvFile.close()
+
+print("the operational datas have already been saved")

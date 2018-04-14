@@ -13,7 +13,8 @@ import csv
 #############################################################################################
 # This periode is for read the noeuds and transform it into the type of a two dimension list
 # with the geographic
-# In this list, the terms are noeud_id, type_noeud, nothing, lat, lon, station, number of the routes
+# In this list, the terms are "id_noeud", "lat", "lon", "id_station", "lat_station", "lon_station", 
+# #"distance_station", "type_station","number_route", "path1", "path2"
 #############################################################################################
 
 myshp = open("NOEUD_ROUTIER.shp", "rb")
@@ -152,7 +153,8 @@ print("read paths finished.....")
 #############################################################################################
 # This periode will delete all the nodes with only two paths
 # And put those two paths in one
-#############################################################################################
+# Then change the attribut of node who has the relationship with the cancelled patha
+# #############################################################################################
 
 delete_noeud = []
 delete_path = []
@@ -210,12 +212,12 @@ while '' in liste_neoud:
     liste_neoud.remove('')
 while '' in liste_troncon:
     liste_troncon.remove('')
-    
+
 print("data has already been cleaned")
 
 #############################################################################################
 # This periode is for put the data in a csv
-#
+# And with the correct name
 #############################################################################################
 
 fileHeader1 = ["id_noeud", "lat", "lon", "id_station", "lat_station", "lon_station", "distance_station", "type_station","number_route", "path1", "path2"]

@@ -223,12 +223,15 @@ while '' in liste_troncon:
 print("data has already been cleaned")
 
 # #############################################################################################
-# # This period is for read a csv file of the stations
-# # And put them into a list
+#  This period is for read a csv file of the stations
+#  Put the geograph into lam-93
+#  And put them into a list
 # #############################################################################################
 
 csvFile = open("IRVE-201605.csv", "r", encoding="utf8")
 reader = csv.reader(csvFile)
+
+
 station = []
 list_stations = []
 for item in reader:
@@ -237,19 +240,16 @@ for item in reader:
 
 list_stations.pop(0)
 
-print(list_stations)
-
-
-
-
-
-
-lat, lon = 2.5091055047334687, 51.077993524380226
 wgs84 = pyproj.Proj('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
 lambert = pyproj.Proj('+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs')
-x, y = pyproj.transform(wgs84, lambert, lat, lon)
-print(x)
-print(y)
+
+for i in range(len(list_stations)):
+    list_stations[i][1], list_stations[i][2] = pyproj.transform(wgs84, lambert, list_stations[i][1], list_stations[i][2])
+    print(list_stations[i])
+
+
+
+
 
 
 

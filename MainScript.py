@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 
 ####################################################################
 #                                                                  #
@@ -6,14 +6,21 @@
 #                            version 1.0                           #
 ####################################################################
 
+# !/usr/bin/python3
+# -*- coding:utf8 -*-
 
+import codecs
 import shapefile
 import csv
+import pyproj
+
+
+
 
 #############################################################################################
-# This periode is for read the noeuds and transform it into the type of a two dimension list
+# This period is for read the nodes and transform it into the type of a two dimension list
 # with the geographic
-# In this list, the terms are "id_noeud", "lat", "lon", "id_station", "lat_station", "lon_station", 
+# In this list, the terms are "id_nodes", "lat", "lon", "id_station", "lat_station", "lon_station",
 # #"distance_station", "type_station","number_route", "path1", "path2"
 #############################################################################################
 
@@ -32,10 +39,10 @@ for i in range(len(neouds)):
 print("read nodes finished.....")
 
 #############################################################################################
-# This periode is for read the routes and transform it into a two dimension list with attributs
+# This period is for read the routes and transform it into a two dimension list with attributs
 # and two points the geographic
-# This periode is for changing the geographic data of route into the id of the noeuds
-# And this periode will calculate the number of roads for each node, and save the first 2 paths of each node
+# This period is for changing the geographic data of route into the id of the nodes
+# And this period will calculate the number of roads for each node, and save the first 2 paths of each node
 #############################################################################################
 
 myshp = open("TRONCON_ROUTE.shp", "rb")
@@ -215,8 +222,39 @@ while '' in liste_troncon:
 
 print("data has already been cleaned")
 
+# #############################################################################################
+# # This period is for read a csv file of the stations
+# # And put them into a list
+# #############################################################################################
+
+csvFile = open("IRVE-201605.csv", "r", encoding="utf8")
+reader = csv.reader(csvFile)
+station = []
+list_stations = []
+for item in reader:
+    station = [item[0]] + item[3:5] + [item[6]]
+    list_stations.append(station)
+
+list_stations.pop(0)
+
+print(list_stations)
+
+
+
+
+
+
+lat, lon = 2.5091055047334687, 51.077993524380226
+wgs84 = pyproj.Proj('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
+lambert = pyproj.Proj('+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs')
+x, y = pyproj.transform(wgs84, lambert, lat, lon)
+print(x)
+print(y)
+
+
+
 #############################################################################################
-# This periode is for put the data in a csv
+# This period is for put the data in a csv
 # And with the correct name
 #############################################################################################
 

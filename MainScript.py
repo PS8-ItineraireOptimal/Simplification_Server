@@ -245,8 +245,7 @@ wgs84 = pyproj.Proj('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
 lambert = pyproj.Proj('+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs')
 
 for i in range(len(list_stations)):
-    list_stations[i][1], list_stations[i][2] = pyproj.transform(wgs84, lambert, list_stations[i][1], list_stations[i][2])
-    print(list_stations[i])
+    list_stations[i][1], list_stations[i][2] = pyproj.transform(wgs84, lambert, list_stations[i][2], list_stations[i][1])
 
 print("reading and transforming station data finished")
 #############################################################################################
@@ -254,26 +253,17 @@ print("reading and transforming station data finished")
 #
 #############################################################################################
 
-#
-# a = 1
-# b = 2
-# liste = [a, b]
-# liste1 = [4, 6]
-# liste = numpy.array(liste)
-# liste1 = numpy.array(liste1)
-#
-# dist = numpy.linalg.norm(liste - liste1)
-# print(dist)
 
 for i in range(len(list_stations)):
     id_min = 0
-    dis_min = 100000000
-    pointA = list_stations[1:3]
+    dis_min = 10000000000000000000.0
+    pointA = list_stations[i][1:3]
     pointA = numpy.array(pointA)
     for j in range(len(liste_neoud)):
-        pointB = liste_neoud[1:3]
+        pointB = liste_neoud[j][1:3]
         pointB = numpy.array(pointB)
         distance = numpy.linalg.norm(pointA - pointB)
+
 
         if ( distance < dis_min ):
             id_min = j
@@ -295,7 +285,7 @@ print("add station finished")
 
 fileHeader1 = ["id_noeud", "lat", "lon", "id_station", "lat_station", "lon_station", "distance_station", "type_station","number_route", "path1", "path2"]
 fileHeader2 = ["id_route", "type_route", "distance", "id_noeud1", "id_noeud2"]
-csvFile = open("Liste_noeud.csv", "w", newline ='')
+csvFile = open("Liste_noeud.csv", "w", newline ='', encoding="utf8")
 
 
 writer = csv.writer(csvFile)
@@ -308,7 +298,7 @@ csvFile.close()
 
 
 
-csvFile = open("Liste_routes.csv", "w", newline ='')
+csvFile = open("Liste_routes.csv", "w", newline ='', encoding="utf8")
 
 writer = csv.writer(csvFile)
 

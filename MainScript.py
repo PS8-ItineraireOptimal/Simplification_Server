@@ -13,6 +13,7 @@ import codecs
 import shapefile
 import csv
 import pyproj
+import numpy
 
 
 
@@ -248,7 +249,42 @@ for i in range(len(list_stations)):
     print(list_stations[i])
 
 
+#############################################################################################
+# This period is to find the nearest node of a station, and then, the nearest station of a node,
+#
+#############################################################################################
 
+#
+# a = 1
+# b = 2
+# liste = [a, b]
+# liste1 = [4, 6]
+# liste = numpy.array(liste)
+# liste1 = numpy.array(liste1)
+#
+# dist = numpy.linalg.norm(liste - liste1)
+# print(dist)
+
+for i in range(len(list_stations)):
+    id_min = 0
+    dis_min = 100000000
+    pointA = list_stations[1:3]
+    pointA = numpy.array(pointA)
+    for j in range(len(liste_neoud)):
+        pointB = liste_neoud[1:3]
+        pointB = numpy.array(pointB)
+        distance = numpy.linalg.norm(pointA - pointB)
+
+        if ( distance < dis_min ):
+            id_min = j
+            dis_min = distance
+
+    if ((liste_neoud[id_min][6] == 0) or (dis_min < liste_neoud[id_min][6])):
+        liste_neoud[id_min][3] = list_stations[i][0]
+        liste_neoud[id_min][4] = list_stations[i][1]
+        liste_neoud[id_min][5] = list_stations[i][2]
+        liste_neoud[id_min][6] = dis_min
+        liste_neoud[id_min][7] = list_stations[i][3]
 
 
 

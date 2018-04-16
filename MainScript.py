@@ -3,7 +3,8 @@
 ####################################################################
 #                                                                  #
 #                     MAIN SCRIPT OF THE DATA BASE                 #
-#                            version 1.0                           #
+#                            version 1.85                          #
+#                 Author : LIU Jixiong, Benoit MANGEARD            #
 ####################################################################
 
 # !/usr/bin/python3
@@ -196,13 +197,11 @@ for i in range(len(liste_neoud)):
 
 
         if (liste_neoud[path1 - 1][9] == origine_path2):
-
             liste_neoud[path1 - 1][9] = origine_path1
 
 
         if (liste_neoud[path1 - 1][10] == origine_path2):
-
-            liste_neoud[path1 - 1][9] = origine_path1
+            liste_neoud[path1 - 1][10] = origine_path1
 
         liste_troncon[index_path1][2] += liste_troncon[index_path2][2]
 
@@ -222,6 +221,9 @@ while '' in liste_troncon:
     liste_troncon.remove('')
 
 print("data has already been cleaned")
+
+delete_noeud = []
+delete_path = []
 
 # #############################################################################################
 #  This period is for read a csv file of the stations

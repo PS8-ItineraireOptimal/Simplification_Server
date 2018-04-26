@@ -1,0 +1,56 @@
+Ce fichier donne les commandes de configuration du server
+
+1) Installation du server: Linux pour Raspberry Pi
+	- Création d'un utilisateur : pi
+
+2) Installation msql:
+
+$ sudo apt install mysql-server
+
+	- Determiner le mot de passe pour l'utilisateur pi : ******
+
+3) Création de la base de données:
+
+$ mysql -u pi -p
+
+	- saisir le password: ******
+
+	- Créer la database projet_S8:
+
+mysql> CREATE DATABASE projet_S8;
+mysql> CTRL+D (exit)
+
+4) Installer python:
+
+$ sudo apt-get install python3
+
+5) Librairy python:
+
+$ sudo su -
+$ apt-get update
+
+$ apt install python3-pip
+$ pip3 install subprocess.run
+$ pip3 install pandas
+$ pip3 install numpy
+$ pip3 install SQLAlchemy
+$ pip3 install mysql-connector
+$ pip3 install numexpr
+
+$ apt-get install cron
+
+6) Créer le dossier BACKUP:
+
+$ cd Documents/
+$ mkdir BACKUP
+
+7) Créer un serveur FTP pour ajouter les scripts et données au serveur
+8) Donner les droits d'accès au script:
+
+$ chmod 777 coef_to_db.py
+
+9) Mise en place de la mise à jour automatique (crontab):
+
+$ crontab -e
+
+5 * * * * cd /home/team1/Documents && python3 coef_to_db.py 

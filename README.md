@@ -1,10 +1,17 @@
 # Simplification_Server
 
-This respertoire is for generate the initial data (shapefile) and put then in a data base.
-All functions will run automatic in a serve.
+This directory is for generate the database.
 
-Before using this script, you should first install the package whose name is pyshp.
+Database folder: this is the SQL script which allow you to create the database on your local machine.
 
+Data_Roads folder: here is the data relative to the roads and nodes of the France grid.
+
+Data_Stations folder: here you can found the French stations database
+
+Scripts folder: here you have two script, MainScript.py which transform and simplified the grid and Coef_To_db which backup the database,
+		add all the coefficents and update the database
+
+Simplified_Data folder: here is the data simplified by the MainScript.py
 
 Author
 
